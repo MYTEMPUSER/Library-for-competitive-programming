@@ -161,48 +161,12 @@ int main() {
 #endif
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int n, m;
-	cin >> n >> m;
+
 	segment_tree<int> tree(1000000);
-	vector<tuple<int, int, int, int>> events;
-	long long res = 1;
-	for (int i = 0; i < n; i++)
-	{
-		int y, lx, rx;
-		cin >> y >> lx >> rx;
-		if (lx == 0 && rx == 1000000)
-			res += 1;
-		events.push_back({ lx, -3, y, 1});
-		events.push_back({ rx, -1, y, 1});
-	}
-	events.push_back({ 0, -3, 0, 1 });
-	events.push_back({ 0, -3, 1000000, 1 });
-	for (int i = 0; i < m; i++)
-	{
-		int x, dy, uy;
-		cin >> x >> dy >> uy;
-		events.push_back({ x, -2, dy, uy});
-	}
-	//events.push_back({1000000, -2, 0, 1000000});
+	
 
-	sort(events.begin(), events.end());
 
-	for (int i = 0; i < events.size(); i++)
-	{
-		if (get<1>(events[i]) == -3)
-		{
-			tree.add_one_value(get<2>(events[i]), get<3>(events[i]));
-		}
-		else
-			if (get<1>(events[i]) == -1)
-				tree.add_one_value(get<2>(events[i]), -get<3>(events[i]));
-			else
-			{
-				res += (tree.sum(get<2>(events[i]), get<3>(events[i])) - 1);
-			}
-	}
-	cout << res;
-	/*tree.add_one_value(1, 100);
+	tree.add_one_value(1, 100);
 	tree.add_one_value(10, 50);
 	tree.add_one_value(20, 30);
 	cout << tree.sum(1, 100) << ' ';
@@ -212,6 +176,6 @@ int main() {
 	cout << tree.sum(75, 76) << ' ';
 	tree.add_on_segment(20, 27, 2);
 	cout << tree.sum(26, 27) << ' ';
-	cout << tree.sum(20, 20) << ' ';*/
+	cout << tree.sum(20, 20) << ' ';
 
 }
