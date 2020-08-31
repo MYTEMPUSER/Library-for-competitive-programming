@@ -1,6 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#define _USE_MATH_DEFINES
-#include <iostream>
+﻿#include <iostream>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -23,6 +21,7 @@
 #include <iterator>
 #include <vector>
 #include <cassert>
+
 #pragma comment(linker, "/STACK:66777216")
 
 using namespace std;
@@ -65,17 +64,18 @@ private:
 	struct NODE {
 		T value;
 		T node_sum;
-		//T prop_value;
+		bool reverse;
 		int d_l, d_r;
 		NODE* l;
 		NODE* r;
-		NODE(T value, int d_l, int d_r, NODE* l = nullptr, NODE* r = nullptr) :value(value), d_l(d_l), d_r(d_r), l(l), r(r), node_sum(0){}
+		NODE(T value, int d_l, int d_r, NODE* l = nullptr, NODE* r = nullptr) :value(value), d_l(d_l), d_r(d_r), l(l), r(r), node_sum(0), reverse(false){}
 		void clear()
 		{
 			value = 0;
 			node_sum = 0;
 			d_l = 0;
 			d_r = 0;
+			reverse = false;
 			l = nullptr;
 			r = nullptr;
 		}
@@ -154,28 +154,3 @@ private:
 };
 
 
-int main() {
-#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-
-	segment_tree<int> tree(1000000);
-	
-
-
-	tree.add_one_value(1, 100);
-	tree.add_one_value(10, 50);
-	tree.add_one_value(20, 30);
-	cout << tree.sum(1, 100) << ' ';
-	tree.add_on_segment(50, 100, 100);
-	cout << tree.sum(1, 100) << ' ';
-	cout << tree.sum(1, 50) << ' ';
-	cout << tree.sum(75, 76) << ' ';
-	tree.add_on_segment(20, 27, 2);
-	cout << tree.sum(26, 27) << ' ';
-	cout << tree.sum(20, 20) << ' ';
-
-}
